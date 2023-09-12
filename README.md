@@ -46,5 +46,5 @@ Base58.set(Base58.fromScure())
 
 ```tsx
 const encoded: string = Base58.get().tryEncode(new Uint8Array([1,2,3,4,5])).unwrap()
-const decoded: Uint8Array = Base58.get().tryDecode(encoded).unwrap().copy()
+const decoded: Uint8Array = Base58.get().tryDecode(encoded).unwrap().copyAndDispose()
 ```
