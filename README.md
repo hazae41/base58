@@ -18,31 +18,26 @@ npm i @hazae41/base58
 
 ### Alocer (WebAssembly)
 
+```bash
+npm i @hazae41/alocer
+```
+
 ```typescript
 import { Base58 } from "@hazae41/base58"
-import { Alocer } from "@hazae41/alocer"
 
-await Alocer.initBundledOnce()
-const base58 = Base58.fromAlocer(Alocer)
-
-/**
- * Set it globally (optional)
- **/
-Base58.set(base58)
+Base58.set(await Base58.fromAlocer())
 ```
 
 ### Scure (JavaScript)
 
+```bash
+npm i @scure/base
+```
+
 ```typescript
 import { Base58 } from "@hazae41/base58"
-import * as scure from "@scure/base"
 
-const base58 = Base58.fromScure(scure.base58)
-
-/**
- * Set it globally (optional)
- **/
-Base58.set(base58)
+Base58.set(Base58.fromScure())
 ```
 
 ## Usage
@@ -50,6 +45,6 @@ Base58.set(base58)
 ### Direct
 
 ```tsx
-const encoded: string = base58.tryEncode(new Uint8Array([1,2,3,4,5])).unwrap()
-const decoded: Uint8Array = base58.tryDecode(encoded).unwrap().copy()
+const encoded: string = Base58.get().tryEncode(new Uint8Array([1,2,3,4,5])).unwrap()
+const decoded: Uint8Array = Base58.get().tryDecode(encoded).unwrap().copy()
 ```
