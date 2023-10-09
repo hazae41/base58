@@ -1,12 +1,13 @@
+import { Box, Copiable, Copied } from "@hazae41/box"
 import { Result } from "@hazae41/result"
 import { base58 } from "@scure/base"
-import { Adapter, Copied } from "./adapter.js"
+import { Adapter } from "./adapter.js"
 import { DecodeError, EncodeError } from "./errors.js"
 
 export function fromScure(): Adapter {
 
-  function tryEncode(bytes: Uint8Array) {
-    return Result.runAndWrapSync(() => base58.encode(bytes)).mapErrSync(EncodeError.from)
+  function tryEncode(bytes: Box<Copiable>) {
+    return Result.runAndWrapSync(() => base58.encode(bytes.get().bytes)).mapErrSync(EncodeError.from)
   }
 
   function tryDecode(text: string) {
