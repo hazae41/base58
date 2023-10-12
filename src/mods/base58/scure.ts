@@ -11,11 +11,15 @@ export function fromScure(): Adapter {
   }
 
   function tryEncode(bytes: BytesOrCopiable) {
-    return Result.runAndWrapSync(() => base58.encode(getBytes(bytes))).mapErrSync(EncodeError.from)
+    return Result.runAndWrapSync(() => {
+      return base58.encode(getBytes(bytes))
+    }).mapErrSync(EncodeError.from)
   }
 
   function tryDecode(text: string) {
-    return Result.runAndWrapSync(() => base58.decode(text)).mapSync(Copied.new).mapErrSync(DecodeError.from)
+    return Result.runAndWrapSync(() => {
+      return base58.decode(text)
+    }).mapSync(Copied.new).mapErrSync(DecodeError.from)
   }
 
   return { tryEncode, tryDecode }
