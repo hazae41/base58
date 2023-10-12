@@ -1,4 +1,4 @@
-import { Box, Copiable } from "@hazae41/box"
+import { BytesOrCopiable, Copiable } from "@hazae41/box"
 import { None, Option } from "@hazae41/option"
 import { Result } from "@hazae41/result"
 import { DecodeError, EncodeError } from "./errors.js"
@@ -14,7 +14,7 @@ export function set(value?: Adapter) {
 }
 
 export interface Adapter {
-  tryEncode(bytes: Box<Copiable>): Result<string, EncodeError>
+  tryEncode(bytes: BytesOrCopiable): Result<string, EncodeError>
   tryDecode(text: string): Result<Copiable, DecodeError>
 }
 
