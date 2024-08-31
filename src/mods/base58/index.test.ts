@@ -1,8 +1,8 @@
 import "@hazae41/symbol-dispose-polyfill"
 
 import { assert, test } from "@hazae41/phobos"
-import { fromWasm } from "./alocer.js"
 import { fromScure } from "./scure.js"
+import { fromWasm } from "./wasm.js"
 
 import { Base58Wasm } from "@hazae41/base58.wasm"
 import * as Scure from "@scure/base"
