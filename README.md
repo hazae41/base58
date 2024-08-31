@@ -44,8 +44,6 @@ Base58.set(Base58.fromScure(Scure))
 
 ## Usage
 
-### Direct
-
 ```tsx
 const encoded: string = Base58.get().getOrThrow().encodeOrThrow(new Uint8Array([1,2,3,4,5]))
 using decoded: Copiable = Base58.get().getOrThrow().decodeOrThrow(encoded)
