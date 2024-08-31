@@ -48,6 +48,6 @@ Base58.set(Base58.fromScure(Scure))
 
 ```tsx
 const encoded: string = Base58.get().getOrThrow().encodeOrThrow(new Uint8Array([1,2,3,4,5]))
-using decoded: Memory = Base58.get().getOrThrow().decodeOrThrow(encoded)
+using decoded: Copiable = Base58.get().getOrThrow().decodeOrThrow(encoded)
 const decoded2: Uint8Array = decoded.bytes.slice()
 ```
