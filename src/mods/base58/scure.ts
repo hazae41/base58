@@ -1,26 +1,21 @@
-import { BytesOrCopiable, Copied } from "@hazae41/box"
-import { Result } from "@hazae41/result"
-import { base58 } from "@scure/base"
+import type Scure from "@scure/base"
+import { BytesOrCopiable, Copied } from "libs/copiable/index.js"
 import { Adapter } from "./adapter.js"
-import { DecodeError, EncodeError } from "./errors.js"
 
-export function fromScure(): Adapter {
+export function fromScure(scure: typeof Scure) {
+  const { base58 } = scure
 
   function getBytes(bytes: BytesOrCopiable) {
     return "bytes" in bytes ? bytes.bytes : bytes
   }
 
-  function tryEncode(bytes: BytesOrCopiable) {
-    return Result.runAndWrapSync(() => {
-      return base58.encode(getBytes(bytes))
-    }).mapErrSync(EncodeError.from)
+  function encodeOrThrow(bytes: BytesOrCopiable) {
+    return base58.encode(getBytes(bytes))
   }
 
-  function tryDecode(text: string) {
-    return Result.runAndWrapSync(() => {
-      return base58.decode(text)
-    }).mapSync(Copied.new).mapErrSync(DecodeError.from)
+  function decodeOrThrow(text: string) {
+    return new Copied(base58.decode(text))
   }
 
-  return { tryEncode, tryDecode }
+  return { encodeOrThrow, decodeOrThrow } satisfies Adapter
 }

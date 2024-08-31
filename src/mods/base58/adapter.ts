@@ -1,20 +1,18 @@
-import { BytesOrCopiable, Copiable } from "@hazae41/box"
-import { None, Option } from "@hazae41/option"
-import { Result } from "@hazae41/result"
-import { DecodeError, EncodeError } from "./errors.js"
+import { None, Nullable, Option } from "@hazae41/option"
+import { BytesOrCopiable, Copiable } from "libs/copiable/index.js"
 
 let global: Option<Adapter> = new None()
 
 export function get() {
-  return global.unwrap()
+  return global
 }
 
-export function set(value?: Adapter) {
+export function set(value: Nullable<Adapter>) {
   global = Option.wrap(value)
 }
 
 export interface Adapter {
-  tryEncode(bytes: BytesOrCopiable): Result<string, EncodeError>
-  tryDecode(text: string): Result<Copiable, DecodeError>
+  encodeOrThrow(bytes: BytesOrCopiable): string
+  decodeOrThrow(text: string): Copiable
 }
 
