@@ -14,7 +14,9 @@ test("encode and decode", async ({ message }) => {
 
   console.log(encodeda, decodeda.bytes)
 
-  const wasm = await fromWasm(Base58Wasm)
+  await Base58Wasm.initBundled()
+
+  const wasm = fromWasm(Base58Wasm)
   const encodedb = wasm.encodeOrThrow(new Uint8Array([1, 2, 3, 4, 5, 6, 7]))
   const decodedb = wasm.decodeOrThrow(encodedb)
 

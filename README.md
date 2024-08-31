@@ -26,7 +26,9 @@ npm i @hazae41/base58.wasm
 import { Base58 } from "@hazae41/base58"
 import { Base58Wasm } from "@hazae41/base58.wasm"
 
-Base58.set(await Base58.fromWasm(Base58Wasm))
+await Base58Wasm.initBundled()
+
+Base58.set(Base58.fromWasm(Base58Wasm))
 ```
 
 ### Scure (JavaScript)
