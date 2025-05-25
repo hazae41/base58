@@ -1,5 +1,5 @@
 import type { Base58Wasm } from "@hazae41/base58.wasm"
-import { Box } from "@hazae41/box"
+import { Box, Ref } from "@hazae41/box"
 import { BytesOrCopiable } from "libs/copiable/index.js"
 import { Adapter } from "./adapter.js"
 
@@ -8,10 +8,12 @@ export function fromWasm(wasm: typeof Base58Wasm) {
 
   function getMemory(bytesOrCopiable: BytesOrCopiable) {
     if (bytesOrCopiable instanceof Memory)
-      return Box.createAsDropped(bytesOrCopiable)
+      return new Ref(bytesOrCopiable)
+
     if (bytesOrCopiable instanceof Uint8Array)
-      return Box.create(new Memory(bytesOrCopiable))
-    return Box.create(new Memory(bytesOrCopiable.bytes))
+      return Box.from(new Memory(bytesOrCopiable))
+
+    return Box.from(new Memory(bytesOrCopiable.bytes))
   }
 
   function encodeOrThrow(bytes: BytesOrCopiable) {
